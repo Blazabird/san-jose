@@ -1,0 +1,39 @@
+{
+  "kind": "singleType",
+  "collectionName": "academic_offers",
+  "info": {
+    "singularName": "academic-offer",
+    "pluralName": "academic-offers",
+    "displayName": "Bienvenida",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "title": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "unique": false,
+      "required": true
+    },
+    "description": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text",
+      "required": true
+    }
+  }
+}
