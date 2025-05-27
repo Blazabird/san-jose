@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "informations",
+  "info": {
+    "singularName": "information",
+    "pluralName": "informations",
+    "displayName": "information",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "picture": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    }
+  }
+}

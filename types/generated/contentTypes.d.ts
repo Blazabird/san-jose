@@ -396,6 +396,12 @@ export interface ApiAcademicOfferAcademicOffer extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
+    Image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -418,6 +424,7 @@ export interface ApiAcademicOfferAcademicOffer extends Struct.SingleTypeSchema {
 export interface ApiBannerBanner extends Struct.SingleTypeSchema {
   collectionName: 'banners';
   info: {
+    description: '';
     displayName: 'Banner';
     pluralName: 'banners';
     singularName: 'banner';
@@ -430,8 +437,6 @@ export interface ApiBannerBanner extends Struct.SingleTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.Text & Schema.Attribute.Required;
-    image: Schema.Attribute.Media<'images' | 'files'> &
-      Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -439,6 +444,7 @@ export interface ApiBannerBanner extends Struct.SingleTypeSchema {
     > &
       Schema.Attribute.Private;
     main: Schema.Attribute.String & Schema.Attribute.Required;
+    media: Schema.Attribute.Media<'images' | 'files' | 'videos'>;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -470,6 +476,38 @@ export interface ApiBiographyBiography extends Struct.CollectionTypeSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     photo: Schema.Attribute.Media<'images' | 'files'>;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCharacteristicCharacteristic
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'characteristics';
+  info: {
+    displayName: 'Characteristic';
+    pluralName: 'characteristics';
+    singularName: 'characteristic';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::characteristic.characteristic'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    Title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -508,6 +546,7 @@ export interface ApiContactContact extends Struct.CollectionTypeSchema {
 export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   collectionName: 'events';
   info: {
+    description: '';
     displayName: 'event';
     pluralName: 'events';
     singularName: 'event';
@@ -520,10 +559,12 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     date: Schema.Attribute.Date;
+    End: Schema.Attribute.Time;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
       Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
+    Start: Schema.Attribute.Time;
     title: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -568,6 +609,36 @@ export interface ApiGradeGrade extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiInformationInformation extends Struct.SingleTypeSchema {
+  collectionName: 'informations';
+  info: {
+    description: '';
+    displayName: 'information';
+    pluralName: 'informations';
+    singularName: 'information';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::information.information'
+    > &
+      Schema.Attribute.Private;
+    picture: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1225,9 +1296,11 @@ declare module '@strapi/strapi' {
       'api::academic-offer.academic-offer': ApiAcademicOfferAcademicOffer;
       'api::banner.banner': ApiBannerBanner;
       'api::biography.biography': ApiBiographyBiography;
+      'api::characteristic.characteristic': ApiCharacteristicCharacteristic;
       'api::contact.contact': ApiContactContact;
       'api::event.event': ApiEventEvent;
       'api::grade.grade': ApiGradeGrade;
+      'api::information.information': ApiInformationInformation;
       'api::level.level': ApiLevelLevel;
       'api::new.new': ApiNewNew;
       'api::slider.slider': ApiSliderSlider;
