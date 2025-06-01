@@ -54,6 +54,21 @@
       "relation": "oneToMany",
       "target": "api::grade.grade",
       "mappedBy": "level"
+    },
+    "subtitle": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "pillars": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pillar.pillar",
+      "mappedBy": "level"
     }
   }
 }
