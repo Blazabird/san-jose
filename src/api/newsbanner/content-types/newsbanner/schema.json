@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "newsbanners",
+  "info": {
+    "singularName": "newsbanner",
+    "pluralName": "newsbanners",
+    "displayName": "newsbanner"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "paragraph": {
+      "type": "text",
+      "required": true
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

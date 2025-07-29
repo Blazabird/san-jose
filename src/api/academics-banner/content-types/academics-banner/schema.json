@@ -1,0 +1,32 @@
+{
+  "kind": "singleType",
+  "collectionName": "academics_banners",
+  "info": {
+    "singularName": "academics-banner",
+    "pluralName": "academics-banners",
+    "displayName": "academicsBanner"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "paragraph": {
+      "type": "text",
+      "required": true
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    }
+  }
+}

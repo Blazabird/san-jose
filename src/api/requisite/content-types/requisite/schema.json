@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "requisites",
+  "info": {
+    "singularName": "requisite",
+    "pluralName": "requisites",
+    "displayName": "Requisite"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Requirement": {
+      "type": "string"
+    },
+    "level": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::level.level",
+      "inversedBy": "requisites"
+    }
+  }
+}

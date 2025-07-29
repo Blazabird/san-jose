@@ -389,7 +389,7 @@ export interface ApiAcademicOfferAcademicOffer extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text &
+    description: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -415,6 +415,38 @@ export interface ApiAcademicOfferAcademicOffer extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiAcademicsBannerAcademicsBanner
+  extends Struct.SingleTypeSchema {
+  collectionName: 'academics_banners';
+  info: {
+    displayName: 'academicsBanner';
+    pluralName: 'academics-banners';
+    singularName: 'academics-banner';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::academics-banner.academics-banner'
+    > &
+      Schema.Attribute.Private;
+    paragraph: Schema.Attribute.Text & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -559,10 +591,14 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     date: Schema.Attribute.Date;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
     End: Schema.Attribute.Time;
+    Image: Schema.Attribute.Media<'images' | 'files' | 'videos'> &
+      Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
       Schema.Attribute.Private;
+    place: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     Start: Schema.Attribute.Time;
     title: Schema.Attribute.String;
@@ -656,48 +692,64 @@ export interface ApiLevelLevel extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
-  pluginOptions: {
-    i18n: {
-      localized: true;
-    };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    grades: Schema.Attribute.Relation<'oneToMany', 'api::grade.grade'>;
+    icon: Schema.Attribute.Media<'files' | 'images'>;
+    levelimage: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::levelimage.levelimage'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::level.level'> &
+      Schema.Attribute.Private;
+    pillars: Schema.Attribute.Relation<'oneToMany', 'api::pillar.pillar'>;
+    pricing: Schema.Attribute.Relation<'oneToOne', 'api::pricing.pricing'>;
+    publishedAt: Schema.Attribute.DateTime;
+    questions: Schema.Attribute.Relation<'oneToMany', 'api::question.question'>;
+    requisites: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::requisite.requisite'
+    >;
+    services: Schema.Attribute.Relation<'oneToMany', 'api::service.service'>;
+    shortDescription: Schema.Attribute.String & Schema.Attribute.Required;
+    subtitle: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiLevelimageLevelimage extends Struct.CollectionTypeSchema {
+  collectionName: 'levelimages';
+  info: {
+    displayName: 'levelimage';
+    pluralName: 'levelimages';
+    singularName: 'levelimage';
+  };
+  options: {
+    draftAndPublish: true;
   };
   attributes: {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.Text &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    grades: Schema.Attribute.Relation<'oneToMany', 'api::grade.grade'>;
-    icon: Schema.Attribute.Media<'files' | 'images'> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: false;
-        };
-      }>;
-    locale: Schema.Attribute.String;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::level.level'>;
-    pillars: Schema.Attribute.Relation<'oneToMany', 'api::pillar.pillar'>;
+    image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    level: Schema.Attribute.Relation<'oneToOne', 'api::level.level'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::levelimage.levelimage'
+    > &
+      Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
-    subtitle: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
-    title: Schema.Attribute.String &
-      Schema.Attribute.Required &
-      Schema.Attribute.Unique &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -760,6 +812,37 @@ export interface ApiNewNew extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiNewsbannerNewsbanner extends Struct.SingleTypeSchema {
+  collectionName: 'newsbanners';
+  info: {
+    displayName: 'newsbanner';
+    pluralName: 'newsbanners';
+    singularName: 'newsbanner';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos'> &
+      Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::newsbanner.newsbanner'
+    > &
+      Schema.Attribute.Private;
+    paragraph: Schema.Attribute.Text & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiPillarPillar extends Struct.CollectionTypeSchema {
   collectionName: 'pillars';
   info: {
@@ -785,8 +868,129 @@ export interface ApiPillarPillar extends Struct.CollectionTypeSchema {
       'api::pillar.pillar'
     > &
       Schema.Attribute.Private;
+    logro: Schema.Attribute.Text & Schema.Attribute.Required;
     Name: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPricingPricing extends Struct.CollectionTypeSchema {
+  collectionName: 'pricings';
+  info: {
+    displayName: 'pricing';
+    pluralName: 'pricings';
+    singularName: 'pricing';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    level: Schema.Attribute.Relation<'oneToOne', 'api::level.level'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::pricing.pricing'
+    > &
+      Schema.Attribute.Private;
+    Monthly_payment: Schema.Attribute.Decimal;
+    publishedAt: Schema.Attribute.DateTime;
+    tuition: Schema.Attribute.Decimal;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiQuestionQuestion extends Struct.CollectionTypeSchema {
+  collectionName: 'questions';
+  info: {
+    description: '';
+    displayName: 'question';
+    pluralName: 'questions';
+    singularName: 'question';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    answer: Schema.Attribute.Text & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    level: Schema.Attribute.Relation<'manyToOne', 'api::level.level'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::question.question'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    question: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiRequisiteRequisite extends Struct.CollectionTypeSchema {
+  collectionName: 'requisites';
+  info: {
+    displayName: 'Requisite';
+    pluralName: 'requisites';
+    singularName: 'requisite';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    level: Schema.Attribute.Relation<'manyToOne', 'api::level.level'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::requisite.requisite'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    Requirement: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiServiceService extends Struct.CollectionTypeSchema {
+  collectionName: 'services';
+  info: {
+    displayName: 'service';
+    pluralName: 'services';
+    singularName: 'service';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Description: Schema.Attribute.Text & Schema.Attribute.Required;
+    level: Schema.Attribute.Relation<'manyToOne', 'api::level.level'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::service.service'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1335,6 +1539,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::academic-offer.academic-offer': ApiAcademicOfferAcademicOffer;
+      'api::academics-banner.academics-banner': ApiAcademicsBannerAcademicsBanner;
       'api::banner.banner': ApiBannerBanner;
       'api::biography.biography': ApiBiographyBiography;
       'api::characteristic.characteristic': ApiCharacteristicCharacteristic;
@@ -1343,8 +1548,14 @@ declare module '@strapi/strapi' {
       'api::grade.grade': ApiGradeGrade;
       'api::information.information': ApiInformationInformation;
       'api::level.level': ApiLevelLevel;
+      'api::levelimage.levelimage': ApiLevelimageLevelimage;
       'api::new.new': ApiNewNew;
+      'api::newsbanner.newsbanner': ApiNewsbannerNewsbanner;
       'api::pillar.pillar': ApiPillarPillar;
+      'api::pricing.pricing': ApiPricingPricing;
+      'api::question.question': ApiQuestionQuestion;
+      'api::requisite.requisite': ApiRequisiteRequisite;
+      'api::service.service': ApiServiceService;
       'api::slider.slider': ApiSliderSlider;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
