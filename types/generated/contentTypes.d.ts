@@ -453,6 +453,36 @@ export interface ApiAcademicsBannerAcademicsBanner
   };
 }
 
+export interface ApiApplicationApplication extends Struct.CollectionTypeSchema {
+  collectionName: 'applications';
+  info: {
+    description: '';
+    displayName: 'application';
+    pluralName: 'applications';
+    singularName: 'application';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    description: Schema.Attribute.Text & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::application.application'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    Title: Schema.Attribute.String & Schema.Attribute.Required;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiBannerBanner extends Struct.SingleTypeSchema {
   collectionName: 'banners';
   info: {
@@ -1540,6 +1570,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::academic-offer.academic-offer': ApiAcademicOfferAcademicOffer;
       'api::academics-banner.academics-banner': ApiAcademicsBannerAcademicsBanner;
+      'api::application.application': ApiApplicationApplication;
       'api::banner.banner': ApiBannerBanner;
       'api::biography.biography': ApiBiographyBiography;
       'api::characteristic.characteristic': ApiCharacteristicCharacteristic;
