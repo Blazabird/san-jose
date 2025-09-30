@@ -4,7 +4,8 @@
   "info": {
     "singularName": "requisite",
     "pluralName": "requisites",
-    "displayName": "Requisite"
+    "displayName": "Requisite",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -14,9 +15,9 @@
     "Requirement": {
       "type": "string"
     },
-    "level": {
+    "levels": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "manyToMany",
       "target": "api::level.level",
       "inversedBy": "requisites"
     }

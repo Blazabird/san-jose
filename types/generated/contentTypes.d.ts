@@ -389,7 +389,7 @@ export interface ApiAcademicOfferAcademicOffer extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    description: Schema.Attribute.String &
+    description: Schema.Attribute.Text &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -741,7 +741,7 @@ export interface ApiLevelLevel extends Struct.CollectionTypeSchema {
     publishedAt: Schema.Attribute.DateTime;
     questions: Schema.Attribute.Relation<'oneToMany', 'api::question.question'>;
     requisites: Schema.Attribute.Relation<
-      'oneToMany',
+      'manyToMany',
       'api::requisite.requisite'
     >;
     services: Schema.Attribute.Relation<'oneToMany', 'api::service.service'>;
@@ -971,6 +971,7 @@ export interface ApiQuestionQuestion extends Struct.CollectionTypeSchema {
 export interface ApiRequisiteRequisite extends Struct.CollectionTypeSchema {
   collectionName: 'requisites';
   info: {
+    description: '';
     displayName: 'Requisite';
     pluralName: 'requisites';
     singularName: 'requisite';
@@ -982,7 +983,7 @@ export interface ApiRequisiteRequisite extends Struct.CollectionTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    level: Schema.Attribute.Relation<'manyToOne', 'api::level.level'>;
+    levels: Schema.Attribute.Relation<'manyToMany', 'api::level.level'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

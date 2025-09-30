@@ -56,12 +56,6 @@
       "target": "api::service.service",
       "mappedBy": "level"
     },
-    "requisites": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::requisite.requisite",
-      "mappedBy": "level"
-    },
     "pricing": {
       "type": "relation",
       "relation": "oneToOne",
@@ -83,6 +77,12 @@
     "shortDescription": {
       "type": "string",
       "required": true
+    },
+    "requisites": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::requisite.requisite",
+      "mappedBy": "levels"
     }
   }
 }
