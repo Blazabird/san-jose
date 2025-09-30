@@ -681,6 +681,31 @@ export interface ApiGradeGrade extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiHolaHola extends Struct.CollectionTypeSchema {
+  collectionName: 'holas';
+  info: {
+    displayName: 'hola';
+    pluralName: 'holas';
+    singularName: 'hola';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    edad: Schema.Attribute.Integer & Schema.Attribute.Unique;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::hola.hola'> &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiInformationInformation extends Struct.SingleTypeSchema {
   collectionName: 'informations';
   info: {
@@ -1578,6 +1603,7 @@ declare module '@strapi/strapi' {
       'api::contact.contact': ApiContactContact;
       'api::event.event': ApiEventEvent;
       'api::grade.grade': ApiGradeGrade;
+      'api::hola.hola': ApiHolaHola;
       'api::information.information': ApiInformationInformation;
       'api::level.level': ApiLevelLevel;
       'api::levelimage.levelimage': ApiLevelimageLevelimage;
